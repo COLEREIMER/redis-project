@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend List</title>
+    <link rel="stylesheet" type="text/css" href="../css/friendlist.css">
+</head>
+<body>
+    <div id="nav">
+        <div id="links">
+            <a href="profile.html" class="button">Profile</a>
+            <a href="friendlist.html" class="button">Friends</a>
+            <a href="addfriends.html" class="button">Add Friends</a>
+        </div>
+        <div id="search">
+            <div id="searchBox">
+                <input type="text" id="searchInput" placeholder="Search" oninput="filterFriends()">
+            </div>
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+    
+    <div id="friends">
+        <div class="friend" id="friend1">
+            <img src="../images/chicken-joe.jpg" alt="Friend 1">
+            <div class="friend-info">
+                <h3>Chicken Joe</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend1')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend2">
+            <img src="../images/cinderella.webp" alt="Friend 2">
+            <div class="friend-info">
+                <h3>Cinderella</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend2')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend3">
+            <img src="../images/moana.jpg" alt="Friend 3">
+            <div class="friend-info">
+                <h3>Moana</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend3')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend4">
+            <img src="../images/m.jpg" alt="Friend 4">
+            <div class="friend-info">
+                <h3>Maui</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend4')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend5">
+            <img src="../images/floundy.webp" alt="Friend 5">
+            <div class="friend-info">
+                <h3>Flounder</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend5')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend6">
+            <img src="../images/olaf.webp" alt="Friend 6">
+            <div class="friend-info">
+                <h3>Olaf</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend6')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend7">
+            <img src="../images/grumpy.webp" alt="Friend 7">
+            <div class="friend-info">
+                <h3>Grumpy</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend7')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend8">
+            <img src="../images/s.jpg" alt="Friend 8">
+            <div class="friend-info">
+                <h3>Spongebob</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend8')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend9">
+            <img src="../images/l.jpeg" alt="Friend 9">
+            <div class="friend-info">
+                <h3>Lightning McQueen</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend9')">Remove</button>
+            </div>
+        </div>
+        <div class="friend" id="friend10">
+            <img src="../images/c.webp" alt="Friend 10">
+            <div class="friend-info">
+                <h3>Chick Hicks</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend10')">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="logout">
+        <a href="../index.html">Logout</a>
+    </div>
+
+    <script>
+        function filterFriends() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const friends = document.getElementsByClassName('friend');
+
+            for (const friend of friends) {
+                const friendName = friend.querySelector('h3').innerText.toLowerCase();
+                const isVisible = friendName.includes(searchInput);
+                friend.style.display = isVisible ? 'flex' : 'none';
+            }
+        }
+
+        function removeFriend(friendId) {
+            const friendToRemove = document.getElementById(friendId);
+            friendToRemove.style.display = 'none'; // Hide instead of removing
+
+            // Clone the friend entry and change the button functionality
+            const friendToAdd = friendToRemove.cloneNode(true);
+            const addButton = friendToAdd.querySelector('button');
+            addButton.textContent = 'Add';
+            addButton.onclick = function() {
+                addFriend(friendId);
+            };
+
+            // Append to addfriends.html
+            const addFriendsPage = window.opener.document.getElementById('content');
+            addFriendsPage.appendChild(friendToAdd);
+        }
+
+        function addFriend(friendId) {
+            const friendToAdd = window.opener.document.getElementById(friendId);
+            friendToAdd.style.display = 'flex'; // Show the friend entry again
+
+            // Change button functionality to remove when clicked in friendlist.html
+            const removeButton = friendToAdd.querySelector('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                removeFriend(friendId);
+            };
+
+            // Remove from addfriends.html
+            const addFriendsPage = window.opener.document.getElementById('content');
+            addFriendsPage.removeChild(friendToAdd);
+        }
+    </script>
+</body>
+</html>

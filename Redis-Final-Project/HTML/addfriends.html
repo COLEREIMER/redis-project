@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend List</title>
+    <link rel="stylesheet" type="text/css" href="../css/friendlist.css">
+</head>
+<body>
+    <div id="nav">
+        <div id="links">
+            <a href="profile.html" class="button">Profile</a>
+            <a href="friendlist.html" class="button">Friends</a>
+            <a href="addfriends.html" class="button">Add Friends</a>
+        </div>
+        <div id="search">
+            <div id="searchBox">
+                <input type="text" id="searchInput" placeholder="Search" oninput="filterFriends()">
+            </div>
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+    
+    <div id="friends">
+        <div class="friend" id="friend1">
+            <img src="../images/walle.jpg" alt="Friend 1">
+            <div class="friend-info">
+                <h3>WALL-E</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend1')">Add</button>
+            </div>
+        </div>
+        <div class="friend" id="friend2">
+            <img src="../images/squid.png" alt="Friend 2">
+            <div class="friend-info">
+                <h3>Squidward</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend2')">Add</button>
+            </div>
+        </div>
+        <div class="friend" id="friend3">
+            <img src="../images/sven.jpg" alt="Friend 3">
+            <div class="friend-info">
+                <h3>Sven The Reindeer</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend3')">Add</button>
+            </div>
+        </div>
+        <div class="friend" id="friend4">
+            <img src="../images/toothless.webp" alt="Friend 4">
+            <div class="friend-info">
+                <h3>Toothless</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <button onclick="removeFriend('friend4')">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="logout">
+        <a href="../index.html">Logout</a>
+    </div>
+
+    <script>
+        function filterFriends() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const friends = document.getElementsByClassName('friend');
+
+            for (const friend of friends) {
+                const friendName = friend.querySelector('h3').innerText.toLowerCase();
+                const isVisible = friendName.includes(searchInput);
+                friend.style.display = isVisible ? 'flex' : 'none';
+            }
+        }
+
+        function removeFriend(friendId) {
+            const friendToRemove = document.getElementById(friendId);
+            friendToRemove.remove();
+        }
+    </script>
+</body>
+</html>
